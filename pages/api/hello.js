@@ -1,5 +1,11 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import handler from "./handler";
+import db from "./db";
 
-export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' })
-}
+handler.get(async function (req, res) {
+  const result = await db.select().from("auth");
+  console.log(req.csrfToken());
+  // console.log(process.env.CSRF_SECRET);
+  res.json(result);
+});
+
+export default handler;
